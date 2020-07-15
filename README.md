@@ -1,5 +1,5 @@
 # Rethinking-SWATS-Optimiser
-Rethinking SWATS (Switches from Adam to SGD) Optimiser. Switching Locally than Globally.
+Rethinking SWATS (Switches from Adam to SGD) Optimiser. Performing the switch Locally than Globally.
 
 ## Prerequisites
 
@@ -9,7 +9,7 @@ Rethinking SWATS (Switches from Adam to SGD) Optimiser. Switching Locally than G
 
 Elementwise scaling of learning rate adopted by Adaptive Optimisers such as Adam, RMSProp etc often generalise poorly due to unstable and non-uniform learning rates at the end of training, although they scale well during the initial part of training. Hence SGD is the go-to for SOTA results since it generalizes better than adaptive methods.
 
-SWATS is a method which switches from Adam to SGD when the difference between the bias corrected projected learning rate and the projected learning rate is less than a threshold ϵ. The switch is global i.e. if one of the layers of the network switches to SGD, all the layers are switched to SGD. 
+SWATS is a method which switches from Adam to SGD when the difference between the bias corrected projected learning rate and the projected learning rate is less than a threshold ϵ.The projected learning rate is found by projecting the SGD's update onto Adam's update. The switch is global i.e. if one of the layers of the network switches to SGD, all the layers are switched to SGD. 
 
 ## Switching Locally than Globally
 
@@ -36,4 +36,10 @@ Since paper's default value of ϵ (threshold to switch) wasn't working for me, I
 Since AdaBound is the only paper which I know which changes smoothly or in other words continuously transforms from Adam to SGD, rather than a hard switch like SWATS, it is fair to compare SWATS with AdaBound.
 
 ## Results
+
+| Model   | Optimiser | Switch  | Test Acc.  |
+| ------- | -------- | ------- |-----------|
+| ResNet-18 | SWATS | Global (Vanilla) |  |
+| ResNet-18 | SWATS | Local |  |
+
 

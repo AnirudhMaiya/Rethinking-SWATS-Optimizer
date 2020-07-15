@@ -25,6 +25,7 @@ Since paper's default value of ϵ (threshold to switch) wasn't working for me, I
 - batch-size = 128
 - epochs = 200
 
+### ResNet - 18
 1. SWATS (GLOBAL SWITCH)
     - initial step size (adam) 0.001
     - step size decay by a factor of 10 at 100 epochs.
@@ -35,6 +36,18 @@ Since paper's default value of ϵ (threshold to switch) wasn't working for me, I
 
 3. Adabound
     - step size decay by a factor of 10 at 100 epochs for AdaBound.
+    
+### DenseNet - 121
+1. SWATS (GLOBAL SWITCH)
+    - initial step size (adam) 0.001
+    - step size decay by a factor of 10 at 150 epochs.
+
+2. New SWATS (LOCAL SWITCH)
+    - step size decay by a factor of 10 at 75,150 epochs for layers which are in SGD Phase.
+    - step size decay by a factor of 10 at 100 epochs for layers which are in Adam.
+
+3. Adabound
+    - step size decay by a factor of 10 at 150 epochs for AdaBound.
 
 ## Comparision
 
@@ -49,9 +62,12 @@ Since AdaBound is the only paper which I know which changes smoothly or in other
 | ResNet-18 | SWATS | Global (Vanilla) |  92.89 |
 | ResNet-18 | SWATS | Local | 94.13 |
 | ResNet-18 | AdaBound | NA | 93.0 |
-
+| DenseNet-121 | SWATS | Global (Vanilla) |  93.30 |
+| DenseNet-121 | SWATS | Local | 94.62 |
+| DenseNet-121 | AdaBound | NA | 93.36 |
 
 ## Switch Over Points(Steps) for Local Switch
+### ResNet-18
 | Layer | Steps | Estimated Learning Rate For SGD |
 | ------- | -------- | ------- |
 linear.weight | 29 | 0.015315 |
@@ -74,6 +90,38 @@ layer1.1.bn2.weight| 10320 |0.157036|
 layer2.0.bn2.bias| 11477 | 0.382424|
 layer2.0.shortcut.1.bias |11477 |0.382424|
 layer3.0.shortcut.0.weight |11729 |1.180122|
+
+### DenseNet-121
+| Layer | Steps | Estimated Learning Rate For SGD |
+| ------- | -------- | ------- |
+| conv1.weight | 180 | 0.012701 |
+| dense2.0.conv1.weight | 776 | 0.802031 |
+| dense1.0.bn2.weight | 938 | 0.499405 |
+| dense1.0.conv1.weight | 1020 | 0.199502 |
+| dense1.0.bn1.weight | 1411 | 0.195258 |
+| trans1.conv.weight | 1499 | 0.269556 |
+| dense2.10.conv2.weight | 1683 | 3.295926 |
+| dense4.6.conv2.weight | 1826 | 4.965084 |
+| dense3.0.bn1.weight | 2013 | 4.180832 |
+| dense2.3.bn2.weight | 2252 | 2.053317 |
+| linear.bias | 2805 | 0.028812 |
+| dense3.9.bn2.weight | 3695 | 2.368862 |
+| trans1.bn.bias | 3782 | 0.382468 |
+| dense1.2.conv1.weight | 4286 | 0.857455 |
+| trans1.bn.weight | 4525 | 0.329345 |
+| dense3.9.bn1.weight | 4629 | 4.333698 |
+| dense3.4.conv2.weight | 4802 | 2.658655 |
+| dense2.1.bn1.bias | 4953 | 1.257946 |
+| dense3.8.conv1.weight | 5268 | 6.371582 |
+| dense2.0.bn2.bias | 5538 | 1.395342 |
+| dense3.7.bn2.weight | 5664 | 1.882873 |
+| dense2.4.bn2.weight | 7457 | 1.158317 |
+| dense1.4.conv2.weight | 8148 | 2.967311 |
+| trans3.bn.weight | 8449 | 1.047665 |
+| dense2.2.bn1.bias | 9793 | 1.812838 |
+| dense3.9.conv1.weight | 10624 | 8.560639 |
+| dense3.4.bn1.weight | 12009 | 1.662682 |
+| dense2.6.conv2.weight | 22923 | 28.562759 |
 
 ## Note
 Since there is no official implementation of SWATS from the authors, the code for it is borrowed from <a href = 'https://github.com/Mrpatekful/swats'> here </a>. (SwatsVanillaGlobal.py).

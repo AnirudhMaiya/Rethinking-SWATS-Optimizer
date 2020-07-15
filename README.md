@@ -55,7 +55,7 @@ Since AdaBound is the only paper which I know which changes smoothly or in other
 
 ## Results
 
-![alt-text-1](images/TestAcc.png "testacc")
+![alt-text-1](images/TestAccResnet18.png "testacc1") ![alt-text-2](images/TestAccDensenet121.png "testacc2")
 
 | Model   | Optimizer | Switch  | Test Acc.  |
 | ------- | -------- | ------- |-----------|

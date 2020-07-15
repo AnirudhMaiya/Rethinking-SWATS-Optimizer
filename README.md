@@ -42,6 +42,8 @@ Since AdaBound is the only paper which I know which changes smoothly or in other
 
 ## Results
 
+![alt-text-1](images/TestAcc.png "testacc")
+
 | Model   | Optimizer | Switch  | Test Acc.  |
 | ------- | -------- | ------- |-----------|
 | ResNet-18 | SWATS | Global (Vanilla) |  92.89 |

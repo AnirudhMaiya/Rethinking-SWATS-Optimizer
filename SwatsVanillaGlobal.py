@@ -2,6 +2,8 @@ import torch
 import math
 from torch.optim.optimizer import Optimizer
 
+#Source https://github.com/Mrpatekful/swats
+
 class SwatsVanillaGlobal(Optimizer):
     r"""Implements Switching from Adam to SGD technique. Proposed in
     `Improving Generalization Performance by Switching from Adam to SGD`

@@ -123,7 +123,12 @@ layer3.0.shortcut.0.weight |11729 |1.180122|
 | dense3.4.bn1.weight | 12009 | 1.662682 |
 | dense2.6.conv2.weight | 22923 | 28.562759 |
 
+## Conclusion
+The idea of having some layers stay back in Adam phase and some of them moving forward to SGD(M) phase show that you need not switch all the layers to generalize better. Morever in Vanilla SWATS if the switch happens too early, Adaptive estimates cannot be utilised to the full extent. But if the switch is <b>Local</b>, some layers which are in Adam phase will help the initial part of training although the remaining layers have moved on to SGD. 
+
+As seen from the table above some layers(convolutional) in DenseNet have learning rates 8.56, 28.56. One may wonder how is the model converging at such high lr. I think this is due to Batch Normalization and it working well with exotic exponential learning rate schedulers <a href = 'https://arxiv.org/pdf/1910.07454.pdf'> Ref </a> 
 ## Note
 Since there is no official implementation of SWATS from the authors, the code for it is borrowed from <a href = 'https://github.com/Mrpatekful/swats'> here </a>. (SwatsVanillaGlobal.py).
+
 
 <b>If you find any bug in my implementation of switching it locally or find the idea of switching it locally "obscure", kindly feel free to drop an issue or email me at maiyaanirudh@gmail.com.</b>

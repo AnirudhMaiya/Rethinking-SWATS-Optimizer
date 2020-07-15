@@ -23,13 +23,18 @@ Since paper's default value of ϵ (threshold to switch) wasn't working for me, I
 ## Setup
 
 - batch-size = 128
-1. SWATS (GLOBAL SWITCH)
-- initial step size for adam = 0.001
-- 
-- step size decay by a factor of 10 at 75,150 epochs for layers which are in SGD Phase.
-- step size decay by a factor of 10 at 100 epochs for layers which are in Adam.
-- step size decay by a factor of 10 at 100 epochs for AdaBound.
 - epochs = 200
+
+1. SWATS (GLOBAL SWITCH)
+    - initial step size (adam) 0.001
+    - step size decay by a factor of 10 at 100 epochs.
+
+2. New SWATS (LOCAL SWITCH)
+    - step size decay by a factor of 10 at 75,150 epochs for layers which are in SGD Phase.
+    - step size decay by a factor of 10 at 100 epochs for layers which are in Adam.
+
+3. Adabound
+    - step size decay by a factor of 10 at 100 epochs for AdaBound.
 
 ## Comparision
 
@@ -39,7 +44,31 @@ Since AdaBound is the only paper which I know which changes smoothly or in other
 
 | Model   | Optimiser | Switch  | Test Acc.  |
 | ------- | -------- | ------- |-----------|
-| ResNet-18 | SWATS | Global (Vanilla) |  |
-| ResNet-18 | SWATS | Local |  |
+| ResNet-18 | SWATS | Global (Vanilla) |  92.89 |
+| ResNet-18 | SWATS | Local | 94.07 |
+| ResNet-18 | AdaBound | NA | 93.0 |
 
 
+## Switch Over Points(Steps) for Local Switch
+| Layer | Steps | Estimated Learning Rate For SGD |
+| ------- | -------- | ------- |
+linear.weight | 29 | 0.015315 |
+layer1.0.conv1.weight | 1011 | 0.149228 |
+layer2.0.conv1.weight | 2354 | 0.673763 |
+layer1.1.bn1.bias | 2597 | 0.204322 |
+layer2.1.bn1.weight | 3230 | 0.416590 |
+layer2.0.shortcut.0.weight | 3415 | 0.278827 |
+layer1.0.bn1.bias | 3690 | 0.156899 |
+bn1.bias | 4850 | 0.117717 |
+layer1.1.bn2.bias |5574| 0.320231|
+linear.bias |5645 | 0.015616|
+layer3.0.bn2.weight |5744 | 0.420847|
+layer2.1.bn1.bias |6897 | 0.378199|
+layer3.0.bn1.bias |6996 | 0.599258|
+layer2.0.shortcut.1.weight |7972| 0.276019|
+conv1.weight| 7994 |0.042911|
+layer1.0.conv2.weight| 8079| 0.649479|
+layer1.1.bn2.weight| 10320 |0.157036|
+layer2.0.bn2.bias| 11477 | 0.382424|
+layer2.0.shortcut.1.bias |11477 |0.382424|
+layer3.0.shortcut.0.weight |11729 |1.180122|

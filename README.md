@@ -45,7 +45,7 @@ Since AdaBound is the only paper which I know which changes smoothly or in other
 | Model   | Optimiser | Switch  | Test Acc.  |
 | ------- | -------- | ------- |-----------|
 | ResNet-18 | SWATS | Global (Vanilla) |  92.89 |
-| ResNet-18 | SWATS | Local | 94.07 |
+| ResNet-18 | SWATS | Local | 94.13 |
 | ResNet-18 | AdaBound | NA | 93.0 |
 
 

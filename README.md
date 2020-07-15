@@ -72,3 +72,8 @@ layer1.1.bn2.weight| 10320 |0.157036|
 layer2.0.bn2.bias| 11477 | 0.382424|
 layer2.0.shortcut.1.bias |11477 |0.382424|
 layer3.0.shortcut.0.weight |11729 |1.180122|
+
+## Note
+Since there is no official implementation of SWATS from the authors, the code for it is borrowed from <a href = 'https://github.com/Mrpatekful/swats'> here </a>. (SwatsVanillaGlobal.py).
+
+<b>If you find any bug in my implementation of switching it locally or find the idea of switching it locally "obscure", kindly feel free to drop an issue or email me at maiyaanirudh@gmail.com.</b>
